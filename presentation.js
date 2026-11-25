@@ -68,10 +68,18 @@ function connectMap() {
   }).observe(frame);
   selector.disabled=false;reset.disabled=false;
 }
-frame.addEventListener('load',()=>{
-  try {connectMap();} catch(error) {
+function initializeMap() {
+  if (!selector.disabled || frame.contentWindow.location.href === 'about:blank') return;
+
+  try {
+    connectMap();
+  } catch (error) {
     status.textContent=error.message+' Vous pouvez ouvrir la carte seule avec le lien ci-dessous.';
     document.getElementById('map-help').textContent='Chargement indisponible : utilisez le lien « Ouvrir la carte seule ».';
     console.error(error);
   }
-});
+}
+
+frame.addEventListener('load', initializeMap);
+// The frame may finish before this deferred script runs.
+if (frame.contentDocument?.readyState === 'complete') initializeMap();
