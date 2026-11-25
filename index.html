@@ -10,21 +10,25 @@
 </head>
 <body>
   <header class="masthead">
-    <a class="brand" href="./" aria-label="Accueil des territoires Socotec">SOCOTEC<span>Construction & Immobilier</span></a>
-    <span class="edition">MODÈLE DE DÉVELOPPEMENT <span class="edition-dot">/</span> TERRITOIRES</span>
+    <div class="masthead-inner">
+      <img class="brand-mark" src="Logo_quart_socotec.png" width="58" height="34" alt="">
+      <div>
+        <div class="brand">SOCOTEC</div>
+        <h1>Modèle de Développement</h1>
+      </div>
+    </div>
   </header>
   <main>
     <aside class="panel">
       <div>
-        <p class="eyebrow"><span></span> LA GÉOGRAPHIE DU MARCHÉ</p>
-        <h1>À chaque agence, <br>son territoire.</h1>
+        <h2 class="panel-title">Zones de chalandise</h2>
         <p class="intro">Les zones de chalandise Socotec sont définies <strong>à la commune près.</strong> Explorez le découpage qui sert de référence à l’analyse des marchés locaux.</p>
       </div>
       <section class="explorer" aria-labelledby="explore-title">
-        <h2 id="explore-title">Explorer une agence</h2>
+        <h3 id="explore-title">Explorer une agence</h3>
         <label for="agency">Code de l’agence</label>
         <select id="agency" disabled><option value="">Chargement de la carte…</option></select>
-        <button id="reset" type="button" disabled><span aria-hidden="true">↗</span> Vue d’ensemble</button>
+        <button id="reset" type="button" disabled>Vue d’ensemble</button>
         <p id="selection" class="selection" aria-live="polite">Vous pouvez aussi cliquer directement sur un territoire.</p>
       </section>
       <div class="panel-bottom">
@@ -34,11 +38,11 @@
       </div>
     </aside>
     <section class="map-panel" aria-label="Carte interactive des territoires commerciaux">
-      <div class="map-caption"><span class="status-dot"></span> FRANCE MÉTROPOLITAINE <span class="map-caption-detail">· Découpage communal</span></div>
+      <div class="map-caption">France métropolitaine</div>
       <iframe id="territory-map" title="Territoires des agences Socotec, carte interactive" src="carte%2012%2011%202021.html"></iframe>
       <p class="map-help" id="map-help">Déplacez la carte et utilisez les boutons + et − pour zoomer.</p>
     </section>
   </main>
-  <footer><span>Des territoires communaux pour une lecture locale du marché.</span><span>Fond de carte © OpenStreetMap · Leaflet / Folium</span></footer>
+  <footer>Fond de carte © OpenStreetMap · Leaflet / Folium</footer>
 </body>
 </html>

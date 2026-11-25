@@ -14,7 +14,11 @@ function connectMap() {
   const layers = territories.getLayers();
   const overview = territories.getBounds();
   let selected = null;
-  const style = {color:'#007e68',weight:1.2,fillColor:'#2a8a79',fillOpacity:0.17};
+  const theme = getComputedStyle(document.documentElement);
+  const blue = theme.getPropertyValue('--socotec-blue').trim();
+  const darkBlue = theme.getPropertyValue('--socotec-dark-blue').trim();
+  const style = { color: darkBlue, weight: 1.2, fillColor: blue, fillOpacity: 0.16 };
+  const selectedStyle = { color: darkBlue, weight: 3, fillColor: blue, fillOpacity: 0.42 };
   territories.setStyle(style);
   const codes = [...new Set(layers.map(layer => String(layer.feature.properties.Agence)))].sort((a,b)=>a.localeCompare(b,'fr'));
   selector.replaceChildren(new Option('Toutes les agences', ''), ...codes.map(code => new Option('Agence '+code,code)));
@@ -23,7 +27,7 @@ function connectMap() {
     selector.value = code || '';
     layers.forEach(layer => {
       const active = String(layer.feature.properties.Agence) === selected;
-      layer.setStyle(active ? {color:'#173044',weight:2.5,fillColor:'#007e68',fillOpacity:0.4} : style);
+      layer.setStyle(active ? selectedStyle : style);
       if (active) layer.bringToFront();
     });
     const matches = layers.filter(layer => String(layer.feature.properties.Agence) === selected);
@@ -43,7 +47,19 @@ function connectMap() {
   });
   reset.addEventListener('click',()=>{choose('',false);map.closePopup();map.fitBounds(overview,{padding:[25,25],animate:false});});
   const css=win.document.createElement('style');
-  css.textContent='.leaflet-container{font-family:"Trebuchet MS",sans-serif;background:#e8eee9}.leaflet-tile-pane{filter:grayscale(.85);opacity:.7}.leaflet-bar{border:0!important;box-shadow:0 2px 12px #17304422!important}.leaflet-bar a{color:#173044!important}.leaflet-control-attribution{font-size:9px!important}.leaflet-popup-content{color:#173044;font-size:13px}.leaflet-tooltip{border:0;padding:8px 12px;border-radius:4px;color:#173044}.leaflet-control-layers{display:none}';
+  css.textContent = `
+    .leaflet-container {
+      font-family: Arial, Avenir, Helvetica, sans-serif;
+      background: #e5edf4;
+    }
+    .leaflet-tile-pane { filter: grayscale(.85); opacity: .7; }
+    .leaflet-bar { border: 0 !important; box-shadow: 0 2px 12px #22304e22 !important; }
+    .leaflet-bar a { color: ${darkBlue} !important; }
+    .leaflet-control-attribution { font-size: 9px !important; }
+    .leaflet-popup-content, .leaflet-tooltip { color: #22304e; font-size: 13px; }
+    .leaflet-tooltip { border: 1px solid #d7e6f0; padding: 8px 12px; border-radius: 4px; }
+    .leaflet-control-layers { display: none; }
+  `;
   win.document.head.appendChild(css);
   map.fitBounds(overview,{padding:[25,25],animate:false});
   new ResizeObserver(()=>{
